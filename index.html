@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>رفوف | المكتبة الإلكترونية</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #f7f5ef; color: #183b35; }
+header { background: white; padding: 20px; text-align: center; font-size: 28px; color: #28705e; font-weight: bold; }
+.hero { background: #dcebe3; padding: 45px 15px; text-align: center; }
+.hero h1 { font-size: 32px; }
+button { background: #28705e; color: white; border: none; padding: 12px 18px; border-radius: 8px; cursor: pointer; }
+.container { max-width: 1000px; margin: 30px auto; padding: 15px; }
+input { width: 95%; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+.books { display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 18px; margin-top: 25px; }
+.book { background: white; padding: 18px; text-align: center; border-radius: 14px; box-shadow: 0 3px 12px #0001; }
+.cover { font-size: 65px; background: #e9e0d1; padding: 20px; border-radius: 10px; }
+.price { color: #28705e; font-weight: bold; }
+footer { background: #183b35; color: white; padding: 20px; text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+<header>📚 مكتبة رفوف</header>
+<section class="hero">
+<h1>مرحباً بك في مكتبة رفوف</h1>
+<p>اكتشف عالم الكتب والمعرفة والقراءة</p>
+<button onclick="document.getElementById('books').scrollIntoView()">اكتشف الكتب</button>
+</section>
+<div class="container" id="books">
+<h2>📖 الكتب المتوفرة</h2>
+<input id="search" placeholder="ابحث عن كتاب..." oninput="showBooks()">
+<div class="books" id="bookList"></div>
+</div>
+<div class="container">
+<h2>عن المكتبة</h2>
+<p>مكتبة رفوف الإلكترونية توفر مجموعة متنوعة من الكتب في مجالات الروايات والتقنية وتطوير الذات. هدفنا نشر المعرفة وتشجيع القراءة.</p>
+</div>
+<footer>جميع الحقوق محفوظة © 2026 - مكتبة رفوف</footer>
+<script>
+const books = [
+{name:"العادات الذرية",author:"جيمس كلير",price:55,emoji:"🌱"},
+{name:"فن اللامبالاة",author:"مارك مانسون",price:48,emoji:"🧠"},
+{name:"حول العالم في 80 يوم",author:"جول فيرن",price:39,emoji:"🌍"},
+{name:"رجال في الشمس",author:"غسان كنفاني",price:32,emoji:"☀️"},
+{name:"تعلم البرمجة",author:"فريق رفوف",price:60,emoji:"💻"},
+{name:"الذكاء الاصطناعي",author:"فريق رفوف",price:65,emoji:"🤖"}
+];
+let cart = [];
+function showBooks() {
+const search = document.getElementById("search").value;
+const filtered = books.filter(book => book.name.includes(search) || book.author.includes(search));
+document.getElementById("bookList").innerHTML = filtered.map(book => `
+<div class="book">
+<div class="cover">${book.emoji}</div>
+<h3>${book.name}</h3>
+<p>${book.author}</p>
+<p class="price">${book.price} ريال</p>
+<button onclick="addCart('${book.name}')">أضف إلى السلة</button>
+</div>
+`).join("");
+}
+function addCart(name) {
+cart.push(name);
+alert("تمت إضافة الكتاب إلى السلة! عدد الكتب: " + cart.length);
+}
+showBooks();
+</script>
+</body>
+</html>
